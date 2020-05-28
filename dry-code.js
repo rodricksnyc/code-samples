@@ -10,7 +10,6 @@ $('#question').on('click', function() {
 
 })
 
-
 var $class = $('.tools');
 $('.nextTab').click(function () {
   var index = $class.index($('.activeTool'));
@@ -30,7 +29,6 @@ $('.nextTab').click(function () {
     $('.activeTool').closest('.parentDiv').addClass("makeVisible");
 
     $('.relativeDiv:first').parent().removeClass("makeVisible");
-
 
   }
 
