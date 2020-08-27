@@ -1,11 +1,8 @@
 $('#question').on('click', function() {
   $('.modalBackground').show();
   $('.tools:first').addClass('activeTool');
-
   if ($('.tools').hasClass('activeTool')) {
-    console.log('this is active')
     $('.activeTool').addClass('animated fadeIn').show();
-
   }
 
 })
@@ -17,17 +14,14 @@ $('.nextTab').click(function () {
   var $prev = $class.slice(index + 0).first();
 
   $next.addClass('activeTool');
-  $next.addClass('BLAH');
+  $next.addClass('moveIt');
   $prev.removeClass('activeTool');
 
   $prev.removeClass('animated fadeIn').hide();
 
   if ($('.tools').hasClass('activeTool')) {
-    console.log('this is active')
     $('.activeTool').addClass('animated fadeIn').show();
-
     $('.activeTool').closest('.parentDiv').addClass("makeVisible");
-
     $('.relativeDiv:first').parent().removeClass("makeVisible");
 
   }
@@ -37,17 +31,15 @@ $('.nextTab').click(function () {
 
 $('.prevTab').click(function () {
   var index = $class.index($('.activeTool'));
-
   var $next = $class.slice(index).first();
   var $prev = $class.slice(index - 1).first();
   $prev.addClass('activeTool');
-  $prev.addClass('BLAH');
+  $prev.addClass('moveIt');
   $next.removeClass('activeTool');
   $next.removeClass('animated fadeIn').hide();
   $('.relativeDiv').parent().removeClass("makeVisible");
 
   if ($('.tools').hasClass('activeTool')) {
-    console.log('this is active')
     $('.activeTool').addClass('animated fadeIn').show();
 
   }
