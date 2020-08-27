@@ -1,0 +1,90 @@
+/*@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400|Roboto:300);*/
+
+body {
+  background: #F6FFFF;
+  font-family: courier;
+  color: magenta;
+}
+.jumbotron {
+  background: rgba(135, 242, 247, 1);
+
+}
+/*#banner {
+  width: 600px;
+}*/
+.jumbotron-fluid {
+  margin-bottom: 0px;
+}
+
+.farsi {
+  /*width: 100%;*/
+  height: 140px;
+  color: black;
+  border: 1px solid #00e6e6;
+  border-top: 5px solid #00e6e6;
+
+  /* Webkit (Safari/Chrome) */ -webkit-box-shadow: 2px 2px 40px 4px rgba(0,0,0,.3);
+  margin: 10px auto;
+  text-align: left;
+  background: #ff80ff;
+}
+
+.farsi img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  float: left;
+  color: black;
+}
+.farsi span {
+  font-size: 15px;
+  font-weight: 200;
+  color: white;
+  cursor: pointer;
+
+}
+.farsi span:hover {
+  font-weight: 300;
+  color: black;
+}
+
+.farsi-form-div {
+  /*width: 100%;*/
+  margin: 0px auto;
+  height: 50px;
+  border-top: 5px solid coral;
+  /* Webkit (Safari/Chrome) */ -webkit-box-shadow: 2px 2px 50px 4px magenta;
+  background: #ff80ff;
+}
+
+.farsi-form-div input {
+  height: 45px;
+  width: 25%;
+  color: black;
+  background:white;
+}
+
+.farsi-form-div span {
+  color: white;
+  cursor: pointer;
+}
+
+input {
+  color: white;
+  font-size: 14px;
+}
+.img-fluid {
+  margin-bottom: 0px;
+}
+.add {
+  font-size: 30px;
+}
+h6 {
+  width: 20%;
+}
+h5 {
+  color: black;
+}
+p {
+  color: black;
+}

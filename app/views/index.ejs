@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Persian Version</title>
+
+  <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-lg-6 col-xs-6 col-md-6">
+        <img src="img/persian_cat.png" class="img-fluid">
+      </div>
+        <div class="col-sm-6 col-lg-6 col-xs-6 col-md-6">
+        <h1>Persian Version</h1>
+        <p>Hello! Salam! Welcome to Persian Version. If you are trying to learn a second language, it is very common these days to search a word in Google to find the equivalent word in that foreign language. For instance, if I wanted to know how to say dog in Chinese, I would search “dog in Chinese.” In the Google result, not only does the word dog show up translated in the Chinese character 狗, but the phonetic English translation shows up: Gǒu.
+        <br>
+        <br>
+        But what about Farsi? What happens when you search the same word in Farsi? The translated script shows up سگ, but the phonetic spelling does not! This is why this site is useful. Below, feel free to contribute to our phonetic Farsi dictionary, AKA Persian Version!
+        <br>
+        <br>
+        Click “Add Word” and then enter the appropriate information. You will be prompted to enter the English word, the phonetic spelling of the Farsi word, and then your name or email (in case you want to be contacted). Have fun! Hopefully Persian Version will make learning Farsi fun and easy!</p>
+
+      </div>
+    </div>
+
+
+  <!-- <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-4">
+      <img id="banner" class="img-fluid" src="img/persian_cat.png">
+    </div>
+  <div class="col-lg-7 col-md-7 col-sm-2 text-left">
+    <h1>Persian Version</h1></div>
+    <div class="col-lg-7">
+    <h6>igubeiuguiweiuweiufwuiefuviwevfivivfivweiuviuwevviwiueviuwuieuivwui</h6></div>
+  </div>
+</div>
+</div>
+</div> -->
+
+
+<div class="container">
+  <!-- <div class="row"> -->
+  <!-- <div class="col-lg-5">
+
+    <img id="banner" class="img-fluid" src="img/persian_cat.png">
+  </div> -->
+  <div class="col-lg-12 col-md-6 col-sm-4 text-center">
+    <span class='add'>Click Me to Add a Word!</span>
+  </div>
+
+
+<div class="col-lg-12 col-md-10 col-sm-4">
+<div id='farsi-list'>
+
+<div class="farsi-form">
+  <script id="form-template" type="text/x-handlebars-template">
+<div class="col-lg-12 col-md-10 col-sm-4">
+    <div class='farsi-form-div'>
+
+      {{#if this}}
+        <input type="text" name="word" value="{{word}}">
+        <input type="text" name="phonetic" value="{{phonetic}}">
+        <input type="text" name="author" value="{{author}}">
+        <!-- <span class='edit-farsi'>Add</span> -->
+      {{else}}
+        <input type="text" name="word" placeholder="The English Word">
+        <input type="text" name="phonetic" placeholder="The Phonetic Spelling">
+        <input type="text" name="author" placeholder="Your Name or Email">
+        <span class='new-farsi'>Add</span>
+      {{/if}}
+      <span class='cancel'><-> Delete</span>
+    </div>
+  </script>
+     </div>
+  </div>
+</div>
+
+
+
+<div class="col-lg-12 col-md-10 col-sm-4 col-xs-4">
+<script id="farsi-template" type="text/x-handlebars-template">
+  <div class="farsi" id="farsi-{{_id}}">
+
+
+    <h5>The English Word: <span>{{word}}</span></h5>
+    <h5>The Phonetic Spelling of the Farsi Word: <span>{{phonetic}}</span></h5>
+    <h5>The Author's Name or Email: <span>{{author}}</span></h5>
+    <h5>Click to Delete: <span class='destroy' data-id={{_id}}>Delete</span></h5>
+    <!-- <span class='edit' data-id={{_id}}>Edit</span> -->
+  </div>
+</script>
+</div>
+</div>
+
+<!-- </div>
+</div>
+</div> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script id="farsi-template" type="text/x-handlebars-template"></script>
+  <script type="text/javascript" src="/javascripts/index.js"></script>
+
+</body>
+</html>
