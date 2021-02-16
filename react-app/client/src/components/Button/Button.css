@@ -1,0 +1,93 @@
+.btn {
+  font-family: 'Permanent Marker', cursive;
+  margin: 5px;
+}
+#smallBrush {
+  font-family: 'Permanent Marker', cursive;
+}
+#mediumBrush {
+  font-family: 'Permanent Marker', cursive;
+}
+#largeBrush {
+  font-family: 'Permanent Marker', cursive;
+}
+#drawingCanvas {
+  background-color:black;
+  position:relative;
+  top:0;
+  left:0;
+}
+p {
+  font-size: 24px;
+  font-family: 'Permanent Marker', cursive;
+}
+h1 {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.container {
+  max-width:1300px !important;
+}
+.largeFont {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 55px;
+}
+
+a {
+font-size: 38px;
+}
+.aqua {
+  color:  #ff80bf;
+}
+.big {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size:60px;
+    align-items: center;
+}
+.fa {
+  font-size: 20px;
+}
+.colorSelector {
+  width:145px;
+  height:145px;
+  border-style: none;
+}
+.brushSizes {
+  font-size: 20px;
+  background: linear-gradient(to left, #ff6699,  #ff99cc);
+}
+input {
+  background: linear-gradient(to right, #ffb3d9, #ff66ff);
+  border-style: none;
+}
+/* .centerItems {
+  display:flex;
+  flex-direction: column;
+  margin-left: 2%;
+  margin-top: 2%;
+} */
+h5 {
+
+  font-size: 18px;
+  font-family: 'Permanent Marker', cursive;
+  color:black;
+}
+input-placeholder {
+  color: black;
+}
+
+.pt-button {
+  background-color: #ff6699;
+  font-size: 20px;
+  font-family: 'Permanent Marker', cursive;
+  color:black;
+  height: 30px;
+
+}
+.pt-input {
+background-color: #ff6699;
+font-size: 20px;
+font-family: 'Permanent Marker', cursive;
+color:black;
+}

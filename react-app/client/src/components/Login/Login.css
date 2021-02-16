@@ -1,0 +1,15 @@
+.pinkDiv {
+display:flex;
+flex-direction: column;
+margin: 4%;
+}
+
+.centerItems {
+  display:flex;
+  justify-content:space-between;
+}
+
+input {
+  border: 1px solid pink;
+  border-radius: 4px;
+}

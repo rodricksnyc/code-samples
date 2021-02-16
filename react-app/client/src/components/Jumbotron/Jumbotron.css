@@ -1,0 +1,18 @@
+.header {
+  background-color: white;
+}
+
+.sizeSelector {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}
+img {
+  width:334px;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+a {
+  color: hotpink;
+}
