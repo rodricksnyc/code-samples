@@ -1,300 +1,338 @@
-let pageModule = {
-  config: {
-    classes: {
-      activeLevel: '.activeLevel',
-      numberCounter: '.numberCounter',
-      groupCheckbox : '.addCategories input:checkbox',
-      globalCheckbox: 'input:checkbox',
-      groupButton : '.combine',
-      showModal : '#reorderCategories',
-      groupWords : '.groupTopics',
-      checked : ".addCategories input:checkbox:checked",
-      removeLevel :'.removeLevel',
-      removeRow: '#rowTopics .removeLevel',
-      removeColumn: '#columnTopics .removeLevel',
-      reorderOptions : '.categories li .custom-control',
-      mergedCategories :'.merged .custom-control',
-      addCustomControl : '.addCategories li .custom-control',
-      modalList:'.addCategories li',
-      modal: '.categoriesModal',
-      reorderOptions : '.reorderOptions',
-      add: '.addCategories',
-      closeModal : '.closeCategoryModal',
-      save: '.save',
-      expand: '.orangeCircle',
-      plusRow: '.plusRow',
-      mergedCheckbox: '.merged .custom-checkbox',
-      mergedCheck : ".merged input:checkbox",
-      activeLi: 'li .reorderActive',
-      separate: '.separate',
-      merged : '.merged',
-      groupedCategories :'.groupedCategories',
-      rowLevel: '#rowTopic .levels',
-      columnLevel : '#columnTopic .levels',
-      layerLevel: '#layerTopic .levels',
-      analysisLevel: '#analysisTopic .levels'
+$(document).ready(function () {
+
+    //dropdown array
+    const data = [
+        ['<option value="Corn Neo" data-value="13">Miravis Neo</option>', '<option value="Soybeans Neo" data-value="7">Miravis Neo</option>', '<option value="Soybeans Top" data-value="8" >Miravis Top</option>', '<option value="Wheat" data-value="11.8">Miravis Ace</option>', '<option selected="selected"></option>']
+    ]
+
+    const corn = (data[0][0])
+    const soyNeo = (data[0][1])
+    const soyTop = (data[0][2])
+    const wheat = (data[0][3])
+    const empty = (data[0][4])
+
+    //create js classes
+    let pageModule = {
+        config: {
+            classes: {
+                acres: '#numAcres',
+                crop: '#crop',
+                brand: "#brand",
+                cornNumber: $(corn).attr("data-value"),
+                soyNeoNumber: $(soyNeo).attr("data-value"),
+                soyTopNumber: $(soyTop).attr("data-value"),
+                wheatNumber: $(wheat).attr("data-value"),
+                calculate: '#calculate',
+                selectedBrand: '#brand :selected',
+                slider: '.slider',
+                slide: '.slide img, .slide p',
+                recalculate: '#recalculate'
+
+            }
+
+        },
+        //only allow 5 digits
+        countFunc: function () {
+            var acres = pageModule.config.classes.acres
+            $(acres).keyup(function (e) {
+                var max = $(acres).attr('max').length;
+                if ($(this).val().length >= max) {
+                    $(this).val($(this).val().substr(0, max));
+
+                }
+            });
+
+        },
+        //slick slider
+        sliderFunc: function () {
+            var slider = pageModule.config.classes.slider
+
+            $(slider).slick({
+                slidesToShow: 1,
+                centerMode: false,
+                centerPadding: "45%",
+                arrows: true,
+                dots: true,
+                responsive: [{
+                    breakpoint: 991,
+                    settings: {
+                        arrows: false
+                    }
+                }]
+            });
 
 
+        },
+
+        //append correct dropdown options
+        appendFunc: function () {
+            var empty = pageModule.config.classes.empty
+            var crop = pageModule.config.classes.crop
+            var brand = pageModule.config.classes.brand
+            $(crop).change(function () {
+                $(brand).empty()
+                if ($(this).val() == 'Corn') {
+                    $(brand).append(corn);
+                }
+                if ($(this).val() == 'Soybeans') {
+                    $(brand).append(empty, soyNeo, soyTop);
+
+                }
+                if ($(this).val() == 'Wheat') {
+                    $(brand).append(wheat);
+                }
+            });
+
+        },
+
+        //calculator function
+        calculateFunc: function () {
+            var acres = pageModule.config.classes.acres
+            var crop = pageModule.config.classes.crop
+            var brand = pageModule.config.classes.brand
+            var calculate = pageModule.config.classes.calculate
+            var cornNumber = pageModule.config.classes.cornNumber
+            var soyNeoNumber = pageModule.config.classes.soyNeoNumber
+            var soyTopNumber = pageModule.config.classes.soyTopNumber
+            var wheatNumber = pageModule.config.classes.wheatNumber
+            var selectedBrand = pageModule.config.classes.selectedBrand
+            var slide = pageModule.config.classes.slide
+
+            $(calculate).click((e) => {
+                //create objects
+                var elementHtmlList = [];
+
+                elementHtmlList.push({
+                    Element: '.one .num',
+                    Corn: Math.round($(corn).attr("data-value") * 7.49 * $('#numAcres').val()),
+                    SoyNeo: Math.round($(soyNeo).attr("data-value") * 15.21 * $('#numAcres').val()),
+                    SoyTop: Math.round($(soyTop).attr("data-value") * 15.21 * $('#numAcres').val()),
+                    Wheat: Math.round($(wheat).attr("data-value") * 10.93 * $('#numAcres').val())
+                });
+
+                elementHtmlList.push({
+                    Element: '.two .num',
+                    Corn: Math.round(11 * 7.49 * $(acres).val()),
+                    SoyNeo: Math.round(3 * 15.21 * $(acres).val()),
+                    SoyTop: Math.round(4 * 15.21 * $(acres).val()),
+                    Wheat: Math.round(5.7 * 10.93 * $(acres).val())
+                });
+
+                elementHtmlList.push({
+                    Element: '.three .num',
+                    Corn: Math.round(6 * 7.49 * $(acres).val()),
+                    SoyNeo: Math.round(2 * 15.21 * $(acres).val()),
+                    SoyTop: Math.round(1 * 15.21 * $(acres).val()),
+                    Wheat: Math.round(2.8 * 10.93 * $(acres).val())
+                });
+
+                elementHtmlList.push({
+                    Element: '.one .output',
+                    Corn: cornNumber,
+                    SoyNeo: soyNeoNumber,
+                    SoyTop: soyTopNumber,
+                    Wheat: wheatNumber
+                });
+
+                elementHtmlList.push({
+                    Element: '.two .output',
+                    Corn: 11,
+                    SoyNeo: 3,
+                    SoyTop: 4,
+                    Wheat: 5.7
+                });
+
+                elementHtmlList.push({
+                    Element: '.three .output',
+                    Corn: 6,
+                    SoyNeo: 2,
+                    SoyTop: 1,
+                    Wheat: 2.8
+                });
+
+                elementHtmlList.push({
+                    Element: '.one .brandChoice, .brand',
+                    Corn: 'Miravis<sup>&reg;</sup> Neo',
+                    SoyNeo: 'Miravis<sup>&reg;</sup> Neo',
+                    SoyTop: 'Miravis<sup>&reg;</sup> Top',
+                    Wheat: 'Miravis<sup>&reg;</sup> Ace'
+                });
+
+                elementHtmlList.push({
+                    Element: '.two .brandChoice',
+                    Corn: 'Delaro<sup>&reg;</sup> 325 SC <sup class="light">2</sup>',
+                    SoyNeo: 'Delaro<sup>&reg;</sup> 325 SC <sup class="light">2</sup>',
+                    SoyTop: 'Delaro<sup>&reg;</sup> 325 SC <sup class="light">2</sup>',
+                    Wheat: 'Prosaro<sup>&reg;</sup> 421 SC <sup class="light">2</sup>'
+                });
+
+                elementHtmlList.push({
+                    Element: '.three .brandChoice',
+                    Corn: 'Veltyma<sup>&trade;</sup> <sup class="light">3</sup>',
+                    SoyNeo: 'Revytek<sup>&reg;</sup> <sup class="light">3</sup>',
+                    SoyTop: 'Revytek<sup>&reg;</sup> <sup class="light">3</sup>',
+                    Wheat: 'Caramba<sup>&reg;</sup> <sup class="light">3</sup>'
+                });
+
+                elementHtmlList.push({
+                    Element: '.legal',
+                    Corn: '<li><sup>1</sup> 150 on farm grower/strip trials. Application rate and timing: Miravis Neo 13.7 fl. oz/A applied at VT/R1. IA, IL, IN, KS, MN, MO, NE, OH, SD, WI; 2018-2020.</li><li><sup>2</sup> 6 on farm grower/strip trials. Application rates and timing: Miravis Neo 13.7 fl. oz/A and Delaro 325 SC 8 fl. oz/A applied at VT/R1. IA(2), IL (3), IN (1); 2020.</li><li><sup>3</sup> 25 on farm grower/strip trials. Application rates and timing: Miravis Neo 13.7 fl. oz/A and Veltyma 7 fl. oz/A applied at VT/R1. IA (3), IL (10), IN (2), MN (2), NE (3), OH (4), WI (1); 2019-2020.</li>',
+                    SoyNeo: '<li><sup>1</sup> 40 non-replicated on-farm grower/strip trials. Miravis Neo 13.7 fl. oz/A applied at R3. IL (4), IN (1), KS (1), MO (5), OH (9), WI (20); 2019-2020.</li><li><sup>2</sup> 8 on farm grower/strip trials. Application rates and timing: Miravis Neo 13.7 fl. oz/A and Delaro 325 SC 8 fl. oz/A applied at R3. IA (5), NE (3); 2019-2020.</li><li><sup>3</sup> Application rates and timing: Miravis Neo 13.7 fl. oz/A and Revytek 8 fl. oz/A applied at R3. IA (2), MN (10), MO (1), NE (2), OH (7), WI (1); 2019-2020.</li>',
+                    SoyTop: '<li><sup>1</sup> 199 COI and on farm grower/strip trials. Application rate and timing: Miravis Top 13.7 fl. oz/A applied at R3. AR, KY, LA, MS, and TN contain some replicated trials. AR (39), IL (55), IN (11), KS (6), KY (1), LA (27), MO (26), MS (22), TN (12); 2020.</li><li><sup>2</sup> Application rates and timing: Miravis Top 13.7 fl. oz/A and Delaro 325 SC 8 fl. oz/A applied at R3. AR, KY, LA, MS, and TN contain some replicated trials. AR (9), IL (3), IN (1), LA (4), MO (8), MS (3), TN (1); 2018-2020.</li><li><sup>3</sup> 37 COI and on farm grower/strip trials. Application rates and timing: Miravis Top 13.7 fl. oz/A and Revytek 8 fl. oz/A applied at R3. AR, LA, and MS contain some replicated trials. AR (20), IL (4), IN (2), LA (5), MO (5), MS (1); 2019-2020.</li>',
+                    Wheat: '<li><sup>1</sup> 39 on farm grower/strip trials. Application rate and timing: Miravis Ace 13.7 fl. oz/A applied at Feekes 10.5-10.5.1. AR (5), IL (1), LA (8), MO (5), OH (2), WI (18); 2017-2020.</li><li><sup>2</sup> 24 on farm grower/strip trials. Application rates and timing: Miravis Ace 13.7 fl. oz/A and Prosaro 421 SC 6.5-8.2 fl. oz/A at Feekes 10.5-10.5.1. AR (5), GA (1), IL (2), IN (2), KS (1), LA (8), MO (2), OH (1), WI (2); 2017-2020.</li><li><sup>3</sup> 9 on farm grower/strip trials. Application rates and timing: Miravis Ace 13.7 fl. oz/A and Caramba 13.5 fl. oz/A at Feekes 10.5-10.5.1. AR (2), LA (5), MO (2); 2018-2020.</li>'
+                });
+
+
+                if ($(acres).val() == '') {
+                    $('.error-message').show()
+                    e.preventDefault();
+
+                }
+
+                else {
+                    updateNumbers()
+                    $('.error').hide()
+                    $('.secondDiv').fadeIn()
+                    $('.firstDiv').fadeOut()
+
+                    //font size changes
+
+                    if ($(".one .biggest .num").text().length >= 6 && $(document).innerWidth() > 1024) {
+                        $('.biggest, .big').addClass('smallerFont')
+                    }
+                    //hacky way of using a or an
+
+                    $(".output").each(function () {
+                        if ($(this).html() == 8 || $(this).html() == 11 || $(this).html() == 11.8) {
+                            $(this).closest('.col-md-4').find('.vowel').html('an')
+                        }
+
+                    })
+                }
+
+                function updateNumbers() {
+                    //iterate through objects
+                    $.each(elementHtmlList, function (index, val) {
+
+                       //corn
+
+                        if ($(selectedBrand).val() == 'Corn Neo') {
+                            $(val.Element).append(val.Corn);
+
+                            $(slide).each(function () {
+                                if ($(this).hasClass("cornImg")) {
+                                    $(this).show()
+                                }
+                                else {
+                                    $(this).hide()
+                                }
+                            })
+                        }
+                        //soy neo
+
+                        if ($(selectedBrand).val() == 'Soybeans Neo') {
+
+                            $(val.Element).append(val.SoyNeo)
+
+                            $(slide).each(function () {
+                                if ($(this).hasClass("soyNeo")) {
+                                    $(this).show()
+                                }
+                                else {
+                                    $(this).hide()
+                                }
+                            })
+
+                        }
+
+                        //soy top
+
+                        if ($(selectedBrand).val() == 'Soybeans Top') {
+                            $(val.Element).append(val.SoyTop)
+
+                            $(slide).each(function () {
+                                if ($(this).hasClass("soyTop")) {
+                                    $(this).show()
+                                }
+                                else {
+                                    $(this).hide()
+                                }
+                            })
+                        }
+
+                        //wheat
+
+                        if ($(selectedBrand).val() == 'Wheat') {
+                            $(val.Element).append(val.Wheat)
+                            $(slide).each(function () {
+                                if ($(this).hasClass("wheatImg")) {
+                                    $(this).show()
+                                }
+                                else {
+                                    $(this).hide()
+                                }
+                            })
+                        }
+
+
+                    });
+
+                }
+
+                //add commas
+                function numberWithCommas(number) {
+                    var parts = number.toString().split(".");
+                    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    return parts.join(".");
+                }
+
+                $(".num").each(function () {
+                    var num = $(this).text();
+                    var commaNum = numberWithCommas(num);
+                    $(this).text(commaNum);
+                });
+
+                //hide show
+                $('.sliderDiv').removeClass('hidden')
+                $('.slider').slick('refresh');
+
+
+            })
+
+
+        },
+        //recalculate and clear fields
+        recalculateFunc: function () {
+            var acres = pageModule.config.classes.acres
+            $(recalculate).click((e) => {
+                $('.secondDiv').fadeOut()
+
+                $('.firstDiv').fadeIn()
+                $('.secondDiv').hide();
+                $("select").val("0");
+                $(acres).val('');
+                $('.num, .output, .brandChoice, .brand, .legal, #brand').empty()
+                $('.sliderDiv').addClass('hidden')
+                $('.biggest, .big').removeClass('smallerFont')
+                $('.vowel').html('a')
+
+            })
+
+
+        },
+
+        init: function () {
+            let self = this;
+
+        },
 
     }
-  },
-  modalFunc: function() {
-    var modal = pageModule.config.classes.modal
-    var showModal = pageModule.config.classes.showModal
-    var add = pageModule.config.classes.add
-    var addCustomControl  = pageModule.config.classes.addCustomControl
-    var modalInputs = pageModule.config.classes.groupCheckbox
-    var button = pageModule.config.classes.groupButton
-    var words = pageModule.config.classes.groupWords
-    var checkedInputs = pageModule.config.classes.checked
-    var groupNumber =  $(checkedInputs).length;
-    var closeModal = pageModule.config.classes.closeModal
-    var save = pageModule.config.classes.save
-    var remove = pageModule.config.classes.removeLevel
-    var mergedCheck = pageModule.config.classes.mergedCheck
-    var inputs = pageModule.config.classes.globalCheckbox
-    var mergedCategories = pageModule.config.classes.mergedCategories
-    var mergedCheckbox = pageModule.config.classes.mergedCheckbox
-    var checkedInputs = pageModule.config.classes.checked
-    var modalList = pageModule.config.classes.modalList
-    var mergedCheck = pageModule.config.classes.mergedCheck
-    var separate = pageModule.config.classes.separate
-    var groupedCategories = pageModule.config.classes.groupedCategories
-    var merged = pageModule.config.classes.merged
-    var reorderOptions = pageModule.config.classes.reorderOptions
-    var rowLevel = pageModule.config.classes.rowLevel
-    var columnLevel = pageModule.config.classes.columnLevel
-    var layerLevel = pageModule.config.classes.layerLevel
-    var analysisLevel = pageModule.config.classes.analysisLevel
 
-    var horizontal = "";
-    var original = "";
-    $(modal).on('click', function() {
-      $(showModal).modal('show');
-      var categoryLi =  $(this).closest('.levels').find('.categories')
-      var horizontal =  $(this).closest('.levels').find('.horizontal:eq(1)')
-
-      var original = $(categoryLi).clone();
-
-      $(add).append(categoryLi)
-      $(reorderOptions).removeClass('hidden')
-
-      $(modalInputs).change( function(){
-
-        if($(this).prop("checked")==true){
-
-          $(this).closest('li').find('.custom-checkbox').addClass('reorderActive')
-        }
-
-        else{
-
-          $(this).closest('li').find('.custom-checkbox').removeClass('reorderActive')
-
-        };
-
-        let groupNumber =  $(checkedInputs).length;
-
-        let groupCounter = `Combine ${groupNumber}`;
-
-        if($(checkedInputs).length >= 2) {
-          $(button).addClass('brightBlue')
-          $(words).html(groupCounter)
-        }
-        else {
-          $(button).removeClass('brightBlue')
-          $(words).html('Select to group')
-        }
-
-      })
-
-      $(addCustomControl).removeClass('hidden')
-
-      var emptyModal = function (){
-
-        console.log(original)
-
-        $(horizontal).empty().append(original)
-
-        $(add).empty()
-        $(button).removeClass('brightBlue')
-        $(words).html('Select to group')
-
-      }
-      $(closeModal).keypress(
-        emptyModal
-
-      ).click(
-        emptyModal
-      );
-
-      var saveModal = function (){
-        $(horizontal).empty().append(categoryLi)
-
-        $(add).empty()
-
-        $(showModal).modal('hide');
-        $(button).removeClass('brightBlue')
-        $(words).html('Select to group')
-
-      }
-      $(save).keypress(
-        saveModal
-
-      ).click(
-        saveModal
-      );
-
-      $(button).click(function() {
-        var active  = $(this).closest('.modal-content').find('.reorderActive').parent()
-        $(groupedCategories).append(`<div class="merged"><ul class="mergedUL"></ul><button class="separate" tabindex="0" role="button"><p>Separate</p><div class="across4"><i class="fal fa-arrow-left"></i>&nbsp;|&nbsp;<i class="fal fa-arrow-right"></i></div></button></div>`)
-
-        $('.groupedCategories .mergedUL').append(active)
-
-        $(mergedCategories).removeClass('reorderActive').addClass('bottomZero')
-        $(mergedCheck).removeAttr('checked');
-
-        $(words).html('Select to group')
-        $(button).removeClass('brightBlue')
-
-        if ($(addCustomControl).length == 1) {
-          $(button).off("click")
-
-        }
-        else {
-          $(button).on("click")
-        }
-
-        $(separate).click(function(){
-
-          var item = $(this).closest('.merged').find('input:checkbox:checked').parent().parent()
-
-          $('.addCategories .categories').append(item)
-          $(addCustomControl).removeClass('reorderActive').removeClass('bottomZero')
-          $(modalInputs).removeAttr('checked');
-
-          if ($('.mergedUL li').length == 1) {
-            $(separate).css('top', '24%')
-          }
-
-          if ($('.mergedUL li').length == 0) {
-            $(this).closest('.merged').remove()
-
-          }
-
-        })
-
-      })
-
-    })
-
-    $('#rowTopic').on('click', '.removeLevel' , function() {
-      $(horizontal).empty().append(original)
-
-      var el = $(this).closest('.levels').find('input[data-level]').val()
-
-      var putBack = $(this).closest('.levels')
-
-      $('.listArea .topicLevels').append(putBack)
-      $('.addRow').closest('.levels').find(`input[data-level='${el}']`).prop("checked", false);
-
-      if ($(rowLevel).length < 3 ) {
-        $('#rowTopic').animate({
-          minHeight: "none",
-          maxHeight:"85px",
-          height:"auto"
-
-        },400);
-
-      }
-
-      if ($(rowLevel).length >3 ) {
-        $('.whiteBar').fadeOut('slow')
-      }
-
-      if($(rowLevel).length == 0) {
-        $('.plusRow').hide();
-      }
-
-      $('.numberCounter').html(function(i, val) { return val*1 - 1 });
-
-      $(".allLevels input").prop('checked', false).change();
-      var el = $(this).closest('.levels').find('input[data-level]').val()
-
-      if ($(rowLevel).length <= 2 ) {
-        $('.plusRow').removeClass('green')
-
-      }
-
-    })
-
-
-  },
-
-  getnumberFunc: function() {
-    var number = pageModule.config.classes.numberCounter
-    let showNumber =  $(number).html(function(i, activeLevel ) { return activeLevel*1 + 1 });
-    return showNumber;
-
-  },
-
-  showExpandFunc: function() {
-    var expand = pageModule.config.classes.expand
-    var plus = pageModule.config.classes.plusRow
-    var rowLevel = pageModule.config.classes.rowLevel
-    var columnLevel = pageModule.config.classes.columnLevel
-    var layerLevel = pageModule.config.classes.layerLevel
-    var analysisLevel = pageModule.config.classes.analysisLevel
-    var showExpand = function() {
-      if ($(rowLevel).length > 0 || $(columnLevel).length > 0 || $(layerLevel).length > 0 || $(analysisLevel).length > 0) {
-        $(expand).show()
-      }
-      else {
-        $(expand).hide()
-      }
-    }
-
-    $('body').keypress(
-      showExpand
-
-    ).click(
-      showExpand
-    );
-
-  },
-
-  globalRemoveFunc: function() {
-    var inputs = pageModule.config.classes.globalCheckbox
-    var remove = pageModule.config.classes.removeLevel
-    var save = pageModule.config.classes.save
-    var reorderOptions = pageModule.config.classes.reorderOptions
-    $(remove).click(function() {
-      $(inputs).removeAttr('checked');
-      $(inputs).parents().removeClass('reorderActive');
-      $(reorderOptions).addClass('hidden')
-    })
-
-    $(save).click(function() {
-      $(inputs).removeAttr('checked');
-      $(inputs).parents().removeClass('reorderActive');
-      $(reorderOptions).addClass('hidden')
-    })
-
-  },
-
-
-  init: function() {
-
-    let self = this;
-
-    console.log('this is started');
-
-
-  },
-
-}
-
-pageModule.init();
-pageModule.modalFunc()
-pageModule.globalRemoveFunc()
-pageModule.getnumberFunc()
-pageModule.showExpandFunc()
+    pageModule.init()
+    pageModule.countFunc()
+    pageModule.sliderFunc()
+    pageModule.appendFunc()
+    pageModule.calculateFunc()
+    pageModule.recalculateFunc()
+
+})
