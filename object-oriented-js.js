@@ -99,15 +99,16 @@ $(document).ready(function () {
             var slide = pageModule.config.classes.slide
 
             $(calculate).click((e) => {
+              console.log(cornNumber)
                 //create objects
                 var elementHtmlList = [];
 
                 elementHtmlList.push({
                     Element: '.one .num',
-                    Corn: Math.round($(corn).attr("data-value") * 7.49 * $('#numAcres').val()),
-                    SoyNeo: Math.round($(soyNeo).attr("data-value") * 15.21 * $('#numAcres').val()),
-                    SoyTop: Math.round($(soyTop).attr("data-value") * 15.21 * $('#numAcres').val()),
-                    Wheat: Math.round($(wheat).attr("data-value") * 10.93 * $('#numAcres').val())
+                    Corn: Math.round(cornNumber * 7.49 * $(acres).val()),
+                    SoyNeo: Math.round(soyNeoNumber * 15.21 * $(acres).val()),
+                    SoyTop: Math.round(soyTopNumber * 15.21 * $(acres).val()),
+                    Wheat: Math.round(wheatNumber * 10.93 * $(acres).val())
                 });
 
                 elementHtmlList.push({
